@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+<style>
+body {
+    font-family: serif;
+    max-width: 650px;
+    margin: 0 auto;
+    padding: 0 19px;
+    background-color: #EAF6F6;
+
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+
+input[type=text], select {
+  width: 100%;
+  padding: 12px 20px;
+  margin: 8px 0;
+  display: block;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+input[type=submit] {
+  width: 100%;
+  background-color: #04AA6D;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+input[type=submit]:hover {
+  background-color: #45a049;
+}
+
+div.container {
+  border-radius: 5px;
+  background-color: #EAF6F6;
+  {{!-- padding: 20px; --}}
+}
+</style>
+<head>
+    <title>Add courses</title>
+    <link rel = "stylesheet" href="/css/style.css">
+</head>
+<body>
+
+<h1>Add courses</h1>
+
+<div class="container">
+  <form action="">
+    <label for="fname">Course Code</label>
+    <input type="text" id="fname" name="firstname" placeholder="Enter course code.." required>
+
+    <label for="lname">UG/PG</label>
+    <input type="text" id="lname" name="lastname" placeholder="Enter course type.." required>
+
+    <label for="lname">Elective/core</label>
+    <input type="text" id="lname" name="lastname" placeholder="Enter course type.." required>
+
+    <label for="lname">Need to attend lecture</label>
+    <input type="text" id="lname" name="lastname" placeholder="type 0 or 1">
+
+
+    <input type="submit" value="Submit">
+  </form>
+</div>
+{{>footer}}
+</body>
+</html>
