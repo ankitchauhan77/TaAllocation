@@ -2,11 +2,11 @@
 <html>
 <style>
 body {
-    font-family: serif;
+    font-family: "Montserrat", sans-serif;
     max-width: 650px;
     margin: 0 auto;
     padding: 0 19px;
-    background-color: #EAF6F6;
+    background-color: #c0d2d4;
 
     display: flex;
     flex-direction: column;
@@ -41,36 +41,31 @@ input[type=submit]:hover {
 
 div.container {
   border-radius: 5px;
-  background-color: #EAF6F6;
+  background-color: #c0d2d4;
   {{!-- padding: 20px; --}}
 }
 </style>
 <head>
-    <title>Add courses</title>
+    <title>Delete TA</title>
+     <link
+      href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
+      rel="stylesheet"
+    />
     <link rel = "stylesheet" href="/css/style.css">
 </head>
 <body>
 
-<h1>Add courses</h1>
+<h1>Drop TA</h1>
 
 <div class="container">
-  <form action="">
-    <label for="fname">Course Code</label>
-    <input type="text" id="fname" name="firstname" placeholder="Enter course code.." required>
-
-    <label for="lname">UG/PG</label>
-    <input type="text" id="lname" name="lastname" placeholder="Enter course type.." required>
-
-    <label for="lname">Elective/core</label>
-    <input type="text" id="lname" name="lastname" placeholder="Enter course type.." required>
-
-    <label for="lname">Need to attend lecture</label>
-    <input type="text" id="lname" name="lastname" placeholder="type 0 or 1">
-
-
+  <form action="/">
+    <label for="fname">TA Roll Number</label>
+    <input type="text" id="rollNumber" name="rollNumber" placeholder="Enter roll number.." required>
     <input type="submit" value="Submit">
   </form>
 </div>
 {{>footer}}
+  <script src="/js/deleteta.js"></script>
+
 </body>
 </html>

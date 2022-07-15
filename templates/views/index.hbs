@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <title>TA</title>
+    <title>TA Allotment</title>
     <link
       href="https://fonts.googleapis.com/css?family=Montserrat&display=swap"
       rel="stylesheet"
@@ -14,11 +14,39 @@
     <div class="main-content">
         <h1>TA Allotment System</h1>
         <a href="/ta">TA Preferences</a>
+        <br>
         <hr>
+        <br>
         <a href="/faculty">Faculty Preferences</a>
+        <br>
+        <hr>
+        <br>
+        <a href="/showdata">Show Database</a>
+        <br>
+        <hr>
+        <br>
+        <a href="/deletedata" onclick="return fun();">Drop Database</a>
+        <script>
+            function fun() {
+                var warning = "All the data will be deleted";
+                if (confirm(warning))  return true;
+                return false;
+            }
+        </script>
+        <br>
+        <hr>
+        <br>
+        <a href="/deletecourse">Delete Course</a>
+        <br>
+        <hr>
+        <br>
+        <a href="/deleteta">Delete TA</a>
         <br>
         <br>
         <button class="btn" type="button">Show Result</button>
+        {{!-- <br>
+        <br>
+        <button class="btn2" type="button">Show Data</button> --}}
     </div>
     {{>footer}}
     <script src="/js/index.js"></script>

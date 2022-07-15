@@ -40,6 +40,14 @@ app.get('/course', (req, res) => {
     res.render('addcourse');
 });
 
+app.get('/deletecourse', (req, res) => {
+    res.render('deletecourse');
+});
+
+app.get('/deleteta', (req, res) => {
+    res.render('deleteta');
+});
+
 // API for tadetails
 app.post('/tadetails', async (req, res) => {
     try {
@@ -55,21 +63,6 @@ app.post('/tadetails', async (req, res) => {
     }
 });
 
-
-// API for coursedetails
-app.post('/coursedetails', async (req, res) => {
-    try {
-        const courseCode = req.body.courseCode;
-        const course = await COURSE.findOneAndDelete({ courseCode });
-        // console.log(course);
-        const newCourse = new COURSE(req.body);
-        // console.log(newCourse);
-        await newCourse.save();
-        res.status(201).send(newCourse);
-    } catch (e) {
-        res.status(500).send(e);
-    }
-});
 
 // API for profdetails
 app.post('/profdetails', async (req, res) => {
@@ -87,118 +80,49 @@ app.post('/profdetails', async (req, res) => {
 });
 
 
+app.get('/showdata', async (req, res) => {
+    const prof = await PROF.find();
+    const ta = await TA.find();
+
+    var coursedetail = [];
+    for (var i = 0; i < prof.length; i++) {
+        var obj1 = {};
+        obj1['courseCode'] = prof[i].courseCode;
+        obj1['ugPg'] = prof[i].ugPg;
+        obj1['electiveCore'] = prof[i].electiveCore;
+        obj1['needToAttend'] = prof[i].needToAttend;
+        obj1['noOfStudents'] = prof[i].nof;
+        obj1['theoryLab'] = prof[i].theoryLab;
+        obj1['taRollNumber1'] = prof[i].taRollNumber1;
+        obj1['taRollNumber2'] = prof[i].taRollNumber2;
+        obj1['taRollNumber3'] = prof[i].taRollNumber3;
+        coursedetail.push(obj1)
+    }
+
+    var tadetail = [];
+    for (var i = 0; i < ta.length; i++) {
+        var obj = {};
+        obj['rollNumber'] = ta[i].rollNumber;
+        obj['pref1'] = ta[i].pref1;
+        obj['pref2'] = ta[i].pref2;
+        obj['pref3'] = ta[i].pref3;
+        tadetail.push(obj);
+    }
+
+    res.send({coursedetail, tadetail});
+});
+
+
+app.get('/deletedata', async (req, res) => {
+    await PROF.remove({});
+    await TA.remove({});
+    res.send("Dropped");
+})
+
+
 app.get('/result', async (req, res) => {
     const prof = await PROF.find();
     const ta = await TA.find();
-    // var profarr = [];
-    // var taarr = [];
-    // var n = prof.length, m = ta.length;
-    // for (var i = 0; i < n; i++) {
-    //     profarr.push(prof[i].courseCode);
-    // }
-    // for (var i = 0; i < m; i++) {
-    //     taarr.push(ta[i].rollNumber)
-    // }
-    // var A = {};
-    // var B = {};
-    // for (var i = 0; i < profarr.length; i++) {
-    //     A[profarr[i]] = [];
-    //     if (prof[i].taRollNumber1 != "") A[profarr[i]].push(prof[i].taRollNumber1);
-    //     if (prof[i].taRollNumber2 != "") A[profarr[i]].push(prof[i].taRollNumber2);
-    //     if (prof[i].taRollNumber3 != "") A[profarr[i]].push(prof[i].taRollNumber3);
-    //     for (var j = 0; j < m; j++) {
-    //         var flag = true;
-    //         for (var k = 0; k < A[profarr[i]].length; k++) {
-    //             if (A[profarr[i]][k] === taarr[j]) flag = false;
-    //         }
-    //         if (flag) {
-    //             A[profarr[i]].push(taarr[j]);
-    //         }
-    //     }
-    // }
-
-    // for (var i = 0; i < taarr.length; i++) {
-    //     B[taarr[i]] = [];
-    //     if (ta[i].pref1 != "") B[taarr[i]].push(ta[i].pref1);
-    //     if (ta[i].pref2 != "") B[taarr[i]].push(ta[i].pref2);
-    //     if (ta[i].pref3 != "") B[taarr[i]].push(ta[i].pref3);
-    //     for (var j = 0; j < n; j++) {
-    //         var flag = true;
-    //         for (var k = 0; k < B[taarr[i]].length; k++) {
-    //             if (B[taarr[i]][k] === profarr[j]) flag = false;
-    //         }
-    //         if (flag) {
-    //             B[taarr[i]].push(profarr[j]);
-    //         }
-    //     }
-    // }
-    // var match = {};
-    // for (var i = 0; i < m; i++) match[taarr[i]] = [];
-    // while (true) {
-    //     var rem = [];
-    //     for (var i = 0; i < n; i++) rem.push(profarr[i]);
-    //     var count = 0
-    //     while (rem.length !== 0) {
-    //         var course = rem[0];
-
-    //         for (var j = 0; j < A[course].length; j++) {
-    //             var a = A[course][j];
-    //             var already_have = false;
-    //             for (var id =  0; id < match[a].length; id++) {
-    //                 if (match[a][id] == course) already_have = true;
-    //             }
-    //             if (already_have) continue;
-    //             if (match[a].length < 3) {
-    //                 match[a].push(course);
-    //                 count++;
-    //                 break;
-    //             } else {
-    //                 var temp = [-1, -1, -1];
-    //                 var apref
-
-    //                 for (var k = B[a].length - 1; k >= 0; k--) {
-
-    //                     for (var e = 0; e < 3; e++) {
-    //                         if (match[a][e] == B[a][k]) {
-    //                             temp[e] = k;
-    //                         }
-    //                     }
-    //                     if (a == B[a][k]) apref = k;
-    //                 }
-    //                 var f = 0;
-    //                 for (var k = 0; k < 3; k++) {
-    //                     if (apref == temp[k]) f = 1;
-    //                 }
-    //                 if (f === 1) continue;
-    //                 var ind = 0
-    //                 for (var k = 1; k < 3; k++) {
-    //                     if (temp[k] > temp[ind]) {
-    //                         ind = k;
-    //                     }
-    //                 }
-
-    //                 if (temp[ind] > apref) {
-    //                     match[a][ind] = course;
-    //                     count++;
-    //                     break;
-    //                 }
-
-
-
-    //             }
-    //         }
-    //         rem.shift();
-            
-
-    //     }
-    //     if (count === 0) {
-    //         break
-    //     }
-    // }
-
-
-
-
     // res.send(match)
     res.json(allotment(prof, ta));
 });
@@ -208,6 +132,32 @@ app.get('/api', async (req, res) => {
         "hello":["chris","ben"]
     });
 })
+
+app.post('/deletecourse1', async (req, res) => {
+    console.log("starting");
+    try {
+        const courseCode = req.body.courseCode;
+        console.log(courseCode);
+        await PROF.findOneAndDelete({ courseCode });
+        res.send(201);
+    } catch(e) {
+        console.log("catch");
+        res.send(501);
+    }
+})
+app.post('/deleteta1', async (req, res) => {
+    console.log("starting");
+    try {
+        const rollNumber = req.body.rollNumber;
+        console.log(rollNumber);
+        await TA.findOneAndDelete({ rollNumber });
+        res.send(201);
+    } catch(e) {
+        console.log("catch");
+        res.send(501);
+    }
+})
+
 
 
 
