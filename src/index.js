@@ -11,7 +11,7 @@ const ID = require("./models/ID");
 const auth = require('../src/middleware/auth');
 
 const app = express();
-const port = 3001;
+const port = process.env.PORT;
 
 const publicDirectoryPath = path.join(__dirname, "../public");
 const viewsPath = path.join(__dirname, "../templates/views");
