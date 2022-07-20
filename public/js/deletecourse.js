@@ -2,28 +2,49 @@
 
 var facultyForm = document.querySelector("form");
 
-
 facultyForm.addEventListener("submit", function () {
-    var coursCode = document.querySelector("#coursecode").value;
-    
+    var id = document.querySelector("#id").value;
+    var password = document.querySelector("#password").value;
+
+
 
     var data = {
-        "courseCode" : coursCode
+        "id": id,
+        "password": password
     }
-    var url = '/deletecourse1';
+    var url = '/checkpasswordprof';
     fetch(url, {
-        method : 'POST',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body : JSON.stringify(data)
+        body: JSON.stringify(data)
     }).then((response) => {
         response.json().then((data) => {
             if (data.error) {
                 messageLoc.textContent = data.error;
             } else {
-                console.log(data.coursCode);
-                console.log(data.ugpg);
+                console.log(data.check);
+                if (data.check == "yes") {
+
+                    var data = {
+                        "courseCode": id
+                    }
+                    var url = '/deletecourse1';
+                    fetch(url, {
+                        method: 'POST',
+                        headers: {
+                            'Content-Type': 'application/json',
+                        },
+                        body: JSON.stringify(data)
+                    }).then((response) => {
+                        response.json().then((data) => {
+                            if (data.error) {
+                                messageLoc.textContent = data.error;
+                            }
+                        });
+                    });
+                }
             }
         });
     });

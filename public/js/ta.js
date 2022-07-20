@@ -14,7 +14,7 @@ facultyForm.addEventListener("submit", function (e) {
         "id": rollNumber,
         "password": password
     }
-    var url = '/checkpassword';
+    var url = '/checkpasswordta';
     fetch(url, {
         method: 'POST',
         headers: {

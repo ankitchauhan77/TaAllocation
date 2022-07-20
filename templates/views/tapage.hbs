@@ -1,6 +1,6 @@
 <html lang="en">
   <head>
-    <title>Admin</title>
+    <title>TA Preference</title>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -21,14 +21,15 @@
     <div class="banner">
       <div class="container" style="padding-top: 50px;">
         <h1 class="font-weight-semibold">
-          Admin System
+          TA Preferences
         </h1>
         <h6 class="font-weight-normal text-muted pb-3">
           Redirect for desired functionalities
         </h6>
         <div>
-          <button class="btn btn-opacity-light ml-1" onclick="location.href='/showdata';">Show Database</button>
+          <button class="btn btn-opacity-light ml-1" onclick="location.href='/ta';">Add Preference</button>
   
+          <button class="btn btn-opacity-success ml-1" onclick="location.href='/deleteta';">Delete Preference</button>
         </div>
         <img src="img/Group171.svg" alt="" class="img-fluid" />
       </div>
@@ -176,7 +177,7 @@
           </div>
         </section> --}}
         
-        <section class="contact-us" id="contact-section">
+        {{!-- <section class="contact-us" id="contact-section">
           <div class="contact-us-bgimage grid-margin">
             <div class="pb-4">
               <h4 class="px-3 px-md-0 m-0" data-aos="fade-down">
@@ -187,7 +188,7 @@
             <div data-aos="fade-up">
               <button class="btn btn-rounded btn-outline-danger" style="padding: 10px 20px;
     font-size: 30px;
-    border-radius: 10px;" onclick="location.href='/result';">
+    border-radius: 10px;">
                 Result
               </button>
             </div>
@@ -203,10 +204,10 @@
     
             </div>
             <div data-aos="fade-up">
-              <button class="btn btn-opacity-light ml-1" onclick="location.href='/dropdata';">Drop Database</button>
+              <button class="btn btn-opacity-light ml-1">Drop Database</button>
             </div>
           </div>
-        </section>
+        </section> --}}
         {{! <section class="contact-details" id="contact-details-section">
           <div class="row text-center text-md-left">
             <div class="col-12 col-md-6 col-lg-3 grid-margin">

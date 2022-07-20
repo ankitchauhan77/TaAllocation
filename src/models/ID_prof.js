@@ -16,6 +16,6 @@ const idSchema = mongoose.Schema({
     }
 });
 
-const ID = mongoose.model('ID', idSchema)
+const ID_prof = mongoose.model('ID_prof', idSchema)
  
-module.exports = ID
+module.exports = ID_prof

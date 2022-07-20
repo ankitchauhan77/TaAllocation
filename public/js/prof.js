@@ -62,7 +62,7 @@ facultyForm.addEventListener("submit", function (e) {
         "id": coursCode,
         "password": password
     }
-    var url = '/checkpassword';
+    var url = '/checkpasswordprof';
     fetch(url, {
         method: 'POST',
         headers: {

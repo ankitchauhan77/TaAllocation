@@ -1,29 +1,27 @@
+
+
 var facultyForm = document.querySelector("form");
 
-
 facultyForm.addEventListener("submit", function () {
-    var username = document.querySelector("#id").value;
+    var id = document.querySelector("#id").value;
     var password = document.querySelector("#password").value;
-    console.log(username);
+
     var data = {
-        "id" : username,
-        "password" : password
+        "id": id,
+        "password": password
     }
-    var url = '/adduser';
+    var url = '/checkpasswordadmin';
     fetch(url, {
-        method : 'POST',
+        method: 'POST',
         headers: {
             'Content-Type': 'application/json',
         },
-        body : JSON.stringify(data)
+        body: JSON.stringify(data)
     }).then((response) => {
         response.json().then((data) => {
             if (data.error) {
                 messageLoc.textContent = data.error;
-            } else {
-                console.log("a");
             }
         });
     });
 });
-

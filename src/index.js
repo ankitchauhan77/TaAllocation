@@ -7,7 +7,9 @@ const res = require("express/lib/response");
 const async = require("hbs/lib/async");
 require("./db/mongoose");
 const allotment = require("./utils/allotment");
-const ID = require("./models/ID");
+const ID_Ta = require("./models/ID_Ta");
+const ID_prof = require("./models/ID_prof");
+const ID_admin = require("./models/ID_admin");
 const auth = require('../src/middleware/auth');
 
 const app = express();
@@ -63,12 +65,18 @@ app.get("/deleteta", (req, res) => {
 app.get("/sign-admin", (req, res) => {
 	res.render("sign-admin");
 });
-app.get("/sign-ta", (req, res) => {
-	res.render("sign-ta");
+app.get("/tapage", (req, res) => {
+	res.render("tapage");
 });
-app.get("/sign-prof", (req, res) => {
-	res.render("sign-prof");
+app.get("/profpage", (req, res) => {
+	res.render("profpage");
 });
+
+app.get("/dropdata", (req, res) => {
+	res.render("dropdata");
+});
+
+
 
 // API for tadetails
 app.post("/tadetails", async (req, res) => {
@@ -124,15 +132,48 @@ app.post("/profdetails", async (req, res) => {
 });
 
 
-app.post("/checkpassword", async (req, res) => {
+app.post("/checkpasswordta", async (req, res) => {
 	try {
 		const id = req.body.id;
 		const pass = req.body.password;
-		const user = await ID.findOne({ id });
+		const user = await ID_Ta.findOne({ id });
 		const data = {
 			check: "no"
 		}
 		if (user && user.password == pass) data.check = "yes";
+		res.status(201).send(data);
+	} catch (e) {
+		res.status(500).send(e);
+	}
+});
+
+app.post("/checkpasswordprof", async (req, res) => {
+	try {
+		const id = req.body.id;
+		const pass = req.body.password;
+		const user = await ID_prof.findOne({ id });
+		const data = {
+			check: "no"
+		}
+		if (user && user.password == pass) data.check = "yes";
+		res.status(201).send(data);
+	} catch (e) {
+		res.status(500).send(e);
+	}
+});
+
+app.post("/checkpasswordadmin", async (req, res) => {
+	try {
+		const id = req.body.id;
+		const pass = req.body.password;
+		const user = await ID_admin.findOne({ id });
+		const data = {
+			check: "no"
+		}
+		if (user && user.password == pass)  {
+			await PROF.remove({});
+			await TA.remove({});
+		}
 		res.status(201).send(data);
 	} catch (e) {
 		res.status(500).send(e);
@@ -171,11 +212,11 @@ app.get("/showdata", async (req, res) => {
 	res.send({ coursedetail, tadetail });
 });
 
-app.get("/deletedata", async (req, res) => {
-	await PROF.remove({});
-	await TA.remove({});
-	res.send("Dropped");
-});
+// app.get("/deletedata", async (req, res) => {
+// 	await PROF.remove({});
+// 	await TA.remove({});
+// 	res.send("Dropped");
+// });
 
 app.get("/result", async (req, res) => {
 	const prof = await PROF.find();
